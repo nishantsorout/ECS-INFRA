@@ -47,11 +47,13 @@ resource "aws_lb_target_group" "booking_tg" {
 
 }
 
-# ALB HTTP Listener (Port 80)
+# ALB HTTP Listener (Port 443)
 resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.ktt_ecs_alb.arn
-  port              = 80
-  protocol          = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = "arn:aws:acm:ap-south-1:288761766643:certificate/b767719b-1cb9-4449-8579-44ce0d5823fd"
 
   default_action {
     type = "fixed-response"
